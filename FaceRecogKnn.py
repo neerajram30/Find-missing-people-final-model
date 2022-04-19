@@ -38,7 +38,7 @@ while True:
     frame_copy = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
     # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
     frame_copy=cv2.cvtColor(frame_copy, cv2.COLOR_BGR2RGB)
-    predictions = predict(frame_copy, model_path="") # add path here
+    predictions = predict(frame_copy, model_path="classifier/trained_knn_model.clf")
     font = cv2.FONT_HERSHEY_DUPLEX
     for name, (top, right, bottom, left) in predictions:
         top *= 4 #scale back the frame since it was scaled to 1/4 in size
@@ -48,7 +48,7 @@ while True:
         cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 255), 2)
         cv2.putText(frame, name, (left-10,top-6), font, 0.8, (255, 255, 255), 1)
         
-    cv2.imshow('Video', frame)
+        cv2.imshow('Video', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 webcam.release()
